@@ -5,6 +5,7 @@ services:
     environment:
       POSTGRES_USER: $POSTGRES_USER
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      DATABASE_URL: $DATABASE_URL
     volumes:
       - db_volume:/var/lib/alexa_1210-Rails-DB/data
   web:
