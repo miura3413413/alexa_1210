@@ -1,0 +1,24 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    volumes:
+      - db_volume:/var/lib/alexa_1210-Rails-DB/data
+  web:
+    build: .
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/alexa_1210
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+volumes:
+  db_volume:
+    name: alexa_1210-Rails-DB
